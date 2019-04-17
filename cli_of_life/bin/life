@@ -1,0 +1,3 @@
+require_relative "../lib/cli_of_life.rb"
+
+CliOfLife::CLI.go
