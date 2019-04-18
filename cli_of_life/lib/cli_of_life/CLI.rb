@@ -30,8 +30,8 @@ module CliOfLife::CLI
   end
 
   def self.menu_animalia
-    CliOfLife::Scraper.scrape_animal
-    animalia = CliOfLife::Taxa::Taxa.new("Animalia", "Kingdom", "Phyla", "Animals make cholesterol and stuff", ["Mollusca", "Chordata", "Nematoda", "Annelida"])
+    animalia = CliOfLife::Scraper.scrape_animal
+
     puts animalia.taxa_definition
     puts "#{animalia.taxa_level} #{animalia.taxa_name} includes many #{animalia.taxa_next_down}."
     puts "Which are you interested in?"
