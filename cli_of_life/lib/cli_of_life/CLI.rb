@@ -23,15 +23,18 @@ module CliOfLife::CLI
     elsif input == 3
       self.menu_fungi
     elsif input == 4
-      self.menu_no_life
+      self.menu_quit_confirm
     else
       puts "I don't understand. What other choice is there?"
     end
   end
 
   def self.menu_animalia
-    puts "Animals make cholesterol and stuff."
-    puts "What phylum of animalia are you interested in?"
+    animalia = CliOfLife::Taxa::Taxa.new("Animalia", "Kingdom", "Phyla", "Animals make cholesterol and stuff", ["Mollusca", "Chordata", "Nematoda", "Annelida"])
+    puts animalia.taxa_definition
+    puts "#{animalia.taxa_level} #{animalia.taxa_name} includes many #{animalia.taxa_next_down}."
+    puts "Which are you interested in?"
+    animalia.taxa_contents.each_with_index {|tx, ind| puts "#{ind + 1}. #{tx}"}
   end
 
   def self.menu_plantae
