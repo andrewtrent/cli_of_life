@@ -10,8 +10,22 @@ module CliOfLife::Scraper
     @name = doc.css(".biota b").text
     @definition = doc.css("p").text.strip.split("\n")[0]
     @level = doc.at(".biota tr:contains('#{@name}')").css('td').first.text.strip.gsub(":","")
-    #binding.pry
-    CliOfLife::Taxa::Taxa.new(@name, @level, "Phyla", @definition, @contents)
+    CliOfLife::Taxa::Taxa.new(@name, @level, "phyla", @definition, @contents)
+  end
+
+  def self.scrape_phylum(name)
+    doc = Nokogiri::HTML(open("https://en.wikipedia.org/wiki/#{name}"))
+    @contents = []
+    subclassp = doc.at('.biota p:contains("Class")')
+    ahrefs = subclassp.css('a')#.text.split(" ").each {|cl| @contents << cl.text}
+    splitsies = subclassp.text.split("\n")
+    subbed = splitsies.map {|s| s.gsub("Class", "")}
+    firstword = subbed.map {|s| s.split(" ")[0].strip.gsub("&nbsp;", "")}
+    @name = doc.css(".biota b").text
+    @definition = doc.css("p").text.strip.split("\n")[0]
+    @level = "Phylum"
+    CliOfLife::Taxa::Taxa.new(@name, @level, "classes", @definition, @contents)
+    binding.pry
   end
 
 

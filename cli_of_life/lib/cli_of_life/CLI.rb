@@ -29,6 +29,16 @@ module CliOfLife::CLI
     end
   end
 
+  def self.taxa_descend(taxa_above)
+    input = gets.strip.to_i
+    taxa_above.taxa_contents.each_with_index do |cn, ind|
+      if input == ind + 1
+        self.menu_phylum(cn)
+      end
+
+    end
+  end
+
   def self.menu_animalia
     animalia = CliOfLife::Scraper.scrape_animal
 
@@ -36,6 +46,17 @@ module CliOfLife::CLI
     puts "#{animalia.taxa_level} #{animalia.taxa_name} includes many #{animalia.taxa_next_down}."
     puts "Which are you interested in?"
     animalia.taxa_contents.each_with_index {|tx, ind| puts "#{ind + 1}. #{tx}"}
+    taxa_descend(animalia)
+  end
+
+  def self.menu_phylum(phylum_name)
+    phylum = CliOfLife::Scraper.scrape_phylum(phylum_name)
+
+    puts phylum.taxa_definition
+    puts "#{phylum.taxa_level} #{phylum.taxa_name} includes many #{phylum.taxa_next_down}."
+    puts "Which are you interested in?"
+    phylum.taxa_contents.each_with_index {|tx, ind| puts "#{ind + 1}. #{tx}"}
+    taxa_descend(taxa)
   end
 
   def self.menu_plantae
