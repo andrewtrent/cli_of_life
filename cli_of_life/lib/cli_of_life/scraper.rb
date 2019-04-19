@@ -21,11 +21,11 @@ module CliOfLife::Scraper
     splitsies = subclassp.text.split("\n")
     subbed = splitsies.map {|s| s.gsub("Class", "")}
     firstword = subbed.map {|s| s.split(" ")[0].strip.gsub("&nbsp;", "")}
+    firstword.each {|fw| @contents << fw}
     @name = doc.css(".biota b").text
-    @definition = doc.css("p").text.strip.split("\n")[0]
+    @definition = doc.css("p:contains('the')").text.split("\n")[0]
     @level = "Phylum"
     CliOfLife::Taxa::Taxa.new(@name, @level, "classes", @definition, @contents)
-    binding.pry
   end
 
 

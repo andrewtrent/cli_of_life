@@ -23,7 +23,7 @@ module CliOfLife::CLI
     elsif input == 3
       self.menu_fungi
     elsif input == 4
-      self.menu_quit_confirm
+      self.menu_no_life
     else
       puts "I don't understand. What other choice is there?"
     end
@@ -56,7 +56,8 @@ module CliOfLife::CLI
     puts "#{phylum.taxa_level} #{phylum.taxa_name} includes many #{phylum.taxa_next_down}."
     puts "Which are you interested in?"
     phylum.taxa_contents.each_with_index {|tx, ind| puts "#{ind + 1}. #{tx}"}
-    taxa_descend(taxa)
+    #binding.pry
+    taxa_descend(phylum_name)
   end
 
   def self.menu_plantae
@@ -70,7 +71,7 @@ module CliOfLife::CLI
     puts "What phylum of fungi are you interested in?"
   end
 
-  def self.menu_no_dragons
+  def self.menu_no_life
     puts "Life is really all we've got. Are you trying to quit?"
     self.menu_quit_confirm
   end
