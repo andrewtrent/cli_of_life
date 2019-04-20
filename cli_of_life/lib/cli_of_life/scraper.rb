@@ -31,17 +31,13 @@ module CliOfLife::Scraper
   def self.scrape_klass(name)
     doc = Nokogiri::HTML(open("https://en.wikipedia.org/wiki/#{name}"))
     @contents = []
-    subclassp = doc.at('.biota p:contains("Class")')
-    ahrefs = subclassp.css('a')#.text.split(" ").each {|cl| @contents << cl.text}
-    splitsies = subclassp.text.split("\n")
-    subbed = splitsies.map {|s| s.gsub("Class", "")}
-    firstword = subbed.map {|s| s.split(" ")[0].strip.gsub("&nbsp;", "")}
-    firstword.each {|fw| @contents << fw}
+    doc.css(".section-content").text.split("\n").each {|cn| @contents << cn unless cn == ""}
+
+
     @name = doc.css(".biota b").text
     @definition = doc.css("p:contains('the')").text.split("\n")[0]
     @level = "Phylum"
-    CliOfLife::Taxa::Taxa.new(@name, @level, "species", @definition, @contents)
-    binding.pry
+    CliOfLife::Taxa::Taxa.new(@name, @level, "groups", @definition, @contents)
   end
 
 

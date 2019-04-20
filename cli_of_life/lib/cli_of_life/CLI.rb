@@ -70,15 +70,15 @@ module CliOfLife::CLI
     taxa_descend_klass(phylum)
   end
 
-  def self.menu_klass(phylum_name)
-    klass = CliOfLife::Scraper.scrape_phylum(phylum_name)
+  def self.menu_klass(klass_name)
+    klass = CliOfLife::Scraper.scrape_klass(klass_name)
 
     puts klass.taxa_definition
     puts "#{klass.taxa_level} #{klass.taxa_name} includes many #{klass.taxa_next_down}."
     puts "Which are you interested in?"
-    phylum.taxa_contents.each_with_index {|tx, ind| puts "#{ind + 1}. #{tx}"}
+    klass.taxa_contents.each_with_index {|tx, ind| puts "#{ind + 1}. #{tx}"}
     #binding.pry
-    taxa_descend_klass(phylum)
+    taxa_descend_klass(klass)
   end
 
   def self.menu_plantae
